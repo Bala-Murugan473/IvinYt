@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block title %}Admin Access{% endblock %} {% block content %}
+
+  <div id ="admin_content" >
+  <h1>Admin Page</h1>
+  
+  <br>
+  <h2 class="text-center"> <u>Classic Registration List</u></h2>
+  <br>
+  <div>
+    <span>Match Date :</span>
+    <span >{{match_date}} </span>
+    <br>
+    <span>Match Time :</span>
+    <span >{{match_time}} </span>
+    <br>
+    <span>Price :</span>
+    <span >{{price}} </span>
+    <br>
+    <a href="url_for('auth.matchdetails')" >Change Match Details</a>
+
+  </div>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+          <th scope="col">Slot #</th>
+          <th scope="col">Player 1</th>
+          <th scope="col">Player 2</th>
+          <th scope="col">Player 3</th>
+          <th scope="col">Player 4</th>
+          <th scope="col">Player 5</th>
+          <th scope="col">GPay Number</th>
+          <th scope="col">Registration Time</th>
+        </tr>
+    </thead>
+    <tbody >
+      {% for index, row in df.iterrows(): %}
+      <tr>
+        <td>{{ row['slot'] }}</td>
+        <td>{{ row['player1'] }}</td>
+        <td>{{ row['player2'] }}</td>
+        <td>{{ row['player3'] }}</td>
+        <td>{{ row['player4'] }}</td>
+        <td>{{ row['player5'] }}</td>
+        <td>{{ row['gpay'] }}</td>
+        <td>{{ row['regTime'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+
+  {% endblock %}

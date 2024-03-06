@@ -1,0 +1,5 @@
+flask
+pandas
+flask-login
+flask-sqlalchemy
+openpyxl

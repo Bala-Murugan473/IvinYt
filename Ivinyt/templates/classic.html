@@ -1,0 +1,307 @@
+{% extends "base.html" %} {% block title %}Classic Registration- IVIN yt{%
+endblock %} {% block content %}
+
+<div>
+  <div class="">
+    <form
+      name="playersList"
+      methods="POST"
+      action="classicReg.html"
+      accept-charset="utf-8"
+    >
+      <!--to display remaining slots-->
+      <div>
+        <br />
+        <h3>
+          <span>Remaining Slots : </span>
+          <span style="color: red"><b>{{remaining_slot}} </b></span>
+        </h3>
+        <h3>
+          <span>Match Date : </span>
+          <span >{{match_date}} </span>
+        </h3>
+        <h3>
+          <span>Match Time : </span>
+          <span >{{match_time}}</span>
+        </h3>
+      </div>
+      <!-- to display description -->
+      <div class="form-group">
+        <div>
+          <br />
+          <h4 class="text-center"><u>Team Member's List</u></h4>
+          <br />
+          <p>
+            Please enter your team members name
+            <br />
+            Fifth player name is optional
+            <br />
+            Name should be entered without any symbols
+          </p>
+        </div>
+      </div>
+      <!-- player1 -->
+      <div class="form-group">
+        <div class="col-md-4" id="player1Node">
+          <label>
+            <b>Player 1 Name</b>
+          </label>
+          <input
+            placeholder="Enter Player 1"
+            class="form-control"
+            name="player1"
+            id="player1"
+          />
+          <span class="fromerror"><b></b></span>
+        </div>
+      </div>
+      <!-- player2 -->
+      <div class="form-group">
+        <div class="col-md-4" id="player2Node">
+          <label>
+            <b>Player 2 Name</b>
+          </label>
+          <input
+            placeholder="Enter Player 2"
+            class="form-control"
+            name="player2"
+            id="player2"
+          />
+          <span class="fromerror"><b></b></span>
+        </div>
+      </div>
+      <!-- player3 -->
+      <div class="form-group">
+        <div class="col-md-4" id="player3Node">
+          <label>
+            <b>Player 3 Name</b>
+          </label>
+          <input
+            placeholder="Enter Player 3"
+            class="form-control"
+            name="player3"
+            id="player3"
+          />
+          <span class="fromerror"><b></b></span>
+        </div>
+      </div>
+      <!-- player4 -->
+      <div class="form-group">
+        <div class="col-md-4" id="player4Node">
+          <label>
+            <b>Player 4 Name</b>
+          </label>
+          <input
+            placeholder="Enter Player 4"
+            class="form-control"
+            name="player4"
+            id="player4"
+          />
+          <span class="fromerror"><b></b></span>
+        </div>
+      </div>
+      <!-- player5 -->
+      <div class="form-group">
+        <div class="col-md-4" id="player5Node">
+          <label>
+            <b>Player 5 Name</b>
+          </label>
+          <p>substitute player (optional)</p>
+          <input
+            placeholder="Enter Player 5"
+            class="form-control"
+            name="player5"
+            id="player5"
+          />
+          <span class="fromerror"><b></b></span>
+        </div>
+      </div>
+      <!-- gpay -->
+      <div class="form-group">
+        <div class="col-md-4" id="gpayNode">
+          <label for="gpay_no" class="form-label">
+            <b>GPay Number</b>
+          </label>
+          <p>
+            Please enter your Gpay or PhonePe number to recieve winning cash
+            price.
+            <br />
+          </p>
+          <input
+            placeholder="GPay No"
+            class="form-control"
+            name="gpay_no"
+            id="gpay_no"
+            maxlength="10"
+          />
+          <span class="fromerror"><b></b></span>
+        </div>
+      </div>
+      <!-- register btn -->
+      <button
+        class="btn btn-primary form-control"
+        id="register"
+        onclick="return validateForm()"
+        type="button"
+      >
+        Register
+      </button>
+      <!-- confirm register section -->
+      <div
+        class=""
+        id="given_content"
+        style="display: none; padding: 30px 0 15px 0"
+      >
+        <h3 class="text-center">Confirm Registration</h3>
+        <br />
+        <div>
+          <span>Player 1 - </span>
+          <span id="show_p1"></span>
+          <br />
+          <span>Player 2 - </span>
+          <span id="show_p2"></span>
+          <br />
+          <span>Player 3 - </span>
+          <span id="show_p3"></span>
+          <br />
+          <span>Player 4 - </span>
+          <span id="show_p4"></span>
+          <br />
+          <span>Player 5 - </span>
+          <span id="show_p5"></span>
+          <br />
+          <span>GPay/PhonePe - </span>
+          <span id="show_gpay"></span>
+        </div>
+
+        <button
+          type="submit"
+          sytle="display:none;"
+          class="btn btn-primary form-control"
+          id="confirm_register"
+          onclick="send_data()"
+        >
+          Confirm Register
+        </button>
+      </div>
+
+    </form>
+    <div>
+      <h3>
+        <span id="result"></span>
+      </h3>
+    </div>
+  </div>
+</div>
+<script>
+  function getText(ele) {
+    return document.forms["playersList"][ele].value;
+  }
+  // to prevent page to further proceding after error
+  function form_handler(event) {
+    event.preventDefault();
+  }
+  function validateForm() {
+    var returnval = true;
+    clearErrors();
+    var name1 = String(document.forms["playersList"]["player1"].value).trim();
+    if (name1.length <= 1) {
+      console.log(name1);
+      seterror("player1", " Please Enter proper name for Player 1");
+      returnval = false;
+    }
+    var name2 = String(document.forms["playersList"]["player2"].value).trim();
+    if (name2.length <= 1) {
+      console.log(name2);
+      seterror("player2", " Please Enter proper name for Player 2");
+      returnval = false;
+    }
+    var name3 = String(document.forms["playersList"]["player3"].value).trim();
+    if (name3.length <= 1) {
+      console.log(name3);
+      seterror("player3", " Please Enter proper name for Player 2");
+      returnval = false;
+    }
+    var name4 = String(document.forms["playersList"]["player4"].value).trim();
+    if (name4.length <= 1) {
+      console.log(name4);
+      seterror("player4", " Please Enter proper name for Player 4");
+      returnval = false;
+    }
+    var name5 = String(document.forms["playersList"]["player5"].value).trim();
+    if (name5.length <= 1 && name5.length != 0) {
+      console.log(name5);
+      seterror("player5", " Please Enter proper name for Player 5");
+      returnval = false;
+    }
+    var nmr = document.forms["playersList"]["gpay_no"].value;
+    const regExp = /^[0-9]+$/;
+    if (!regExp.test(nmr) || nmr.length != 10) {
+      console.log(nmr);
+      seterror("gpay", " Please proper GPay number");
+      returnval = false;
+    }
+    if (returnval) {
+      // document.getElementById("player1").disabled = true;
+      // document.getElementById("player2").disabled = true;
+      // document.getElementById("player3").disabled = true;
+      // document.getElementById("player4").disabled = true;
+      // document.getElementById("player5").disabled = true;
+      // document.getElementById("gpay_no").disabled = true;
+      document.getElementById("given_content").style.display = "block";
+      document.getElementById("register").style.display = "none";
+      document.getElementById("show_p1").innerText = name1;
+      document.getElementById("show_p2").innerText = name2;
+      document.getElementById("show_p3").innerText = name3;
+      document.getElementById("show_p4").innerText = name4;
+      if (name5.length == 0) {
+        document.getElementById("show_p5").innerText = "not mentioned";
+      } else {
+        document.getElementById("show_p5").innerText = name5;
+      }
+      document.getElementById("show_gpay").innerText = nmr;
+    }
+
+    return false;
+  }
+  function clearErrors() {
+    console.log("boob");
+    errors = document.getElementsByClassName("fromerror");
+    for (let item of errors) {
+      item.innerHTML = "";
+    }
+  }
+  function seterror(id, error) {
+    //sets error inside tag of id
+    element = document.getElementById(id + "Node");
+    element.getElementsByClassName("fromerror")[0].innerHTML = error;
+  }
+  // to send data to register
+  function send_data() {
+    console.log("data sending");
+    document.getElementById("result").innerHTML = "Please Wait ";
+    document.querySelector("form").addEventListener("submit", form_handler);
+    var fd = new FormData(document.querySelector("form"));
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        console.log("XHR READY");
+        document.getElementById("result").innerHTML = xhr.responseText;
+      }
+    };
+    xhr.open("POST", "/classicReg", true);
+    xhr.onload = function () {};
+    console.log("OUTPUT" + xhr.responseText);
+    if (true) {
+        document.querySelector("form").style.display = "none";
+    }
+    xhr.send(fd);
+  }
+</script>
+<style>
+  .fromerror {
+    color: red;
+  }
+</style>
+
+{% endblock %}

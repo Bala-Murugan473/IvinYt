@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block
+content %}
+<form method="POST">
+  <br>
+  <h3 align-center="center" align-text="center">Sign Up</h3>
+  <div>
+    <p>By Signing up to our website, you can save your team players name and gpay number for autofill on registrations.</p>
+  </div>
+  <div class="form-group">
+    <label for="name">Player Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      placeholder="Enter your name"
+    />
+  </div>
+  <div class="form-group">
+    <label for="Mobile">Mobile Number</label>
+    <span class="border-end country-code px-2">(+91)</span>
+    <input
+      type="text"
+      class="form-control"
+      id="mobile"
+      name="mobile"
+      maxlength="10"
+      placeholder="Enter Mobile Number"
+      
+    />
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      type="text"
+      class="form-control"
+      id="password"
+      name="password"
+      placeholder="Enter Password"
+    />
+  </div>
+
+  <br />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

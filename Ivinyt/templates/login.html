@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block title %}Login - IVIN yt{% endblock %} {% block
+    content %}
+    <form method="POST">
+        <h3 align-center="center">Log In</h3>
+        <br>
+        <div class="form-group">
+          <label for="Mobile">Mobile Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="mobile"
+            name="mobile"
+            placeholder="Enter Mobile Number"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="Enter Password"
+          />
+        </div>
+      
+        <br />
+        <button type="submit" class="btn btn-primary">Log in</button>
+      </form>
+    
+    {% endblock %}
